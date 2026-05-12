@@ -4,7 +4,7 @@ date: 2026-05-11
 title: |-
   재즈? 음악? 따위는
   머릿속에서 지워버린다
-photo: /uploads/63020019.jpeg
+photo: /uploads/3309.jpg
 photoAlt: 다리 밑을 달리는 자전거
 signoff: Gardener H
 ---
