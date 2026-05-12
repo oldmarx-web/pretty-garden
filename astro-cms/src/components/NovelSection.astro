@@ -1,0 +1,67 @@
+---
+import { getCollection, render } from 'astro:content';
+import { marked } from 'marked';
+
+const installments = (await getCollection('novel'))
+  .sort((a, b) => b.data.no - a.data.no);
+
+// 본문 마크다운 렌더링 + 미리보기 마크다운 변환
+const rendered = await Promise.all(
+  installments.map(async (item) => {
+    const { Content } = await render(item);
+    const previewHtml = marked.parse(item.data.preview ?? '', { breaks: false }) as string;
+    return { item, Content, previewHtml };
+  })
+);
+
+function fmtDate(d: Date) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}. ${m}. ${day}`;
+}
+---
+<section class="fiction-section" id="fiction">
+  <div class="wrap">
+
+    <div class="novel-cover">
+      <div class="series">가드너 H의 소설 연재 · Serial Fiction by Gardener H</div>
+      <h2 class="novel-title">걷는 듯 편안하게</h2>
+      <p class="novel-byline">Andante Comodo · a novel in 30 parts</p>
+      <p class="novel-note">한 사람의 다리, 오래 묵힌 LP 박스, 그리고 죽은 사람이 남긴 한 장의 봉투. 매 회 한 파트씩, 천천히 걷는 속도로 도착합니다.</p>
+      <span class="rule"></span>
+    </div>
+
+    <div class="installments">
+      {rendered.map(({ item, Content, previewHtml }) => {
+        const no = String(item.data.no).padStart(2, '0');
+        return (
+          <article class="installment reveal">
+            <div class="installment-meta">
+              <span class="no">No. {no}</span>
+              <span class="ep">{item.data.episode}</span>
+              <span>{fmtDate(item.data.date)}</span>
+              <span>{item.data.parts}</span>
+            </div>
+
+            <div class="installment-preview" set:html={previewHtml}></div>
+
+            <details class="installment-expand">
+              <summary>
+                <span class="lbl-open">이어 읽기 — {item.data.episode}</span>
+                <span class="lbl-close">접기</span>
+              </summary>
+              <div class="installment-rest">
+                <Content />
+                <div class="installment-end">
+                  <span class="rule"></span>
+                  {item.data.episode} 끝 · To be continued
+                </div>
+              </div>
+            </details>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</section>
