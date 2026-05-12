@@ -1,0 +1,403 @@
+/* =============================================================
+   작은정원 (Pretty Garden) — 전역 스타일
+   기존 단일 index.html 에서 추출 · 정돈
+   ============================================================= */
+
+:root{
+  --ink:#0a0a0a;
+  --paper:#f6f4ef;
+  --paper-2:#ecebe6;
+  --line:#1a1a1a;
+  --mute:#6b6b6b;
+  --hair:rgba(10,10,10,.12);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter','Noto Sans KR',system-ui,-apple-system,sans-serif;
+  font-weight:400;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%;height:auto}
+
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+@media (max-width:640px){ .wrap{padding:0 20px} }
+
+/* ---------- NAV ---------- */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:var(--paper);
+  border-bottom:1px solid var(--hair);
+}
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  height:64px;
+}
+.brand{
+  font-family:'Noto Serif KR',serif;
+  font-weight:500;
+  font-size:18px;letter-spacing:.02em;
+  display:flex;align-items:center;gap:12px;
+}
+.brand-mark{
+  width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.brand-mark img{
+  width:100%;height:100%;object-fit:contain;
+  mix-blend-mode:multiply;
+}
+.brand .en{color:var(--mute);font-weight:300;letter-spacing:.18em;font-size:11px;margin-left:6px}
+.nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.nav ul a{color:var(--mute)}
+.nav ul a:hover{color:var(--ink)}
+@media (max-width:640px){ .nav ul{display:none} }
+
+/* ---------- HERO ---------- */
+.hero{padding:96px 0 64px}
+.hero-photo-section{padding:0 0 96px;border-bottom:1px solid var(--hair)}
+.hero-photo{
+  margin:0;
+  width:100%;
+  aspect-ratio: 3/2;
+  max-height:80vh;
+  overflow:hidden;
+  background:var(--paper-2);
+  box-shadow:
+    0 1px 0 rgba(0,0,0,.04),
+    0 30px 50px -24px rgba(0,0,0,.30);
+}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 62%}
+.photo-caption{
+  margin-top:14px;
+  display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);
+}
+.photo-caption em{font-style:italic;font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:.04em;text-transform:none;color:var(--ink)}
+.eyebrow{
+  font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--mute);
+  margin-bottom:28px;
+}
+.hero h1{
+  font-family:'Noto Serif KR','Cormorant Garamond',serif;
+  font-weight:400;
+  font-size:clamp(40px,6.4vw,84px);
+  line-height:1.08;letter-spacing:-.01em;
+  margin:0 0 28px;
+}
+.hero h1 em{font-style:italic;font-family:'Cormorant Garamond',serif;font-weight:400}
+.hero p.lede{
+  max-width:640px;
+  font-size:17px;color:#2b2b2b;
+  line-height:1.75;
+  margin:0;
+}
+.hero-meta{
+  display:flex;gap:48px;margin-top:56px;
+  font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);
+}
+.hero-meta b{color:var(--ink);font-weight:500;letter-spacing:0;text-transform:none;font-size:15px;display:block;margin-bottom:4px;font-family:'Noto Serif KR',serif}
+
+/* ---------- SECTION HEAD ---------- */
+.sec{padding:96px 0;border-bottom:1px solid var(--hair)}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:56px;gap:24px;flex-wrap:wrap}
+.sec-title{
+  font-family:'Noto Serif KR',serif;font-weight:500;
+  font-size:clamp(28px,3.4vw,40px);letter-spacing:-.005em;margin:0;
+}
+.sec-kicker{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--mute)}
+
+/* ---------- BOOK GRID ---------- */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:64px 56px;
+}
+@media (max-width:880px){ .grid{grid-template-columns:1fr;gap:64px} }
+.book{display:grid;grid-template-columns:200px 1fr;gap:32px;align-items:start}
+@media (max-width:520px){ .book{grid-template-columns:140px 1fr;gap:20px} }
+.cover{
+  aspect-ratio:2/3;
+  background:var(--paper-2);
+  box-shadow:
+    0 1px 0 rgba(0,0,0,.04),
+    0 24px 40px -20px rgba(0,0,0,.35),
+    0 8px 16px -10px rgba(0,0,0,.25);
+  overflow:hidden;
+  border-radius:1px;
+  transform:translateZ(0);
+  transition:transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s ease;
+  filter:grayscale(1) contrast(1.02);
+}
+.book:hover .cover{
+  transform:translateY(-4px);
+  filter:grayscale(0) contrast(1);
+  box-shadow:
+    0 1px 0 rgba(0,0,0,.04),
+    0 32px 50px -20px rgba(0,0,0,.45),
+    0 12px 20px -10px rgba(0,0,0,.3);
+}
+.cover img{width:100%;height:100%;object-fit:cover}
+.book-meta{display:flex;align-items:center;gap:12px;margin-bottom:14px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.tag{
+  display:inline-flex;align-items:center;height:22px;padding:0 10px;
+  border:1px solid var(--ink);color:var(--ink);
+  font-size:10.5px;letter-spacing:.16em;
+}
+.tag.new{background:var(--ink);color:var(--paper)}
+.book h3{
+  font-family:'Noto Serif KR',serif;font-weight:500;
+  font-size:26px;line-height:1.2;letter-spacing:-.005em;margin:0 0 8px;
+}
+.book .author{font-size:14px;color:var(--mute);margin:0 0 18px}
+.book .author b{color:var(--ink);font-weight:500}
+.book p.desc{font-size:14.5px;color:#2b2b2b;line-height:1.75;margin:0 0 22px}
+.book .links{display:flex;gap:14px;align-items:center;font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 14px;border:1px solid var(--ink);color:var(--ink);
+  transition:background .2s,color .2s;
+}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn .arr{transition:transform .25s}
+.btn:hover .arr{transform:translateX(3px)}
+.price{font-family:'Cormorant Garamond',serif;font-size:18px;letter-spacing:.04em;color:var(--mute)}
+
+/* ---------- GARDENER H'S LETTERS ---------- */
+.h-letters{display:flex;flex-direction:column}
+.h-letter{
+  padding:64px 0;
+  border-top:1px solid var(--hair);
+}
+.h-letter:first-child{border-top:none;padding-top:0}
+.h-letter-head{
+  display:grid;grid-template-columns:200px 1fr;gap:56px;align-items:start;
+  margin-bottom:8px;
+}
+@media (max-width:880px){ .h-letter-head{grid-template-columns:1fr;gap:14px} }
+.h-letter-aside{
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);line-height:1.9;
+}
+.h-letter-aside .no{
+  font-family:'Cormorant Garamond',serif;font-size:34px;letter-spacing:.04em;color:var(--ink);
+  display:block;margin-bottom:6px;text-transform:none;line-height:1;
+}
+.h-letter-aside .date{display:block;margin-top:2px}
+.h-letter-aside .signoff{display:block;margin-top:18px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;text-transform:none;letter-spacing:.04em;color:var(--ink)}
+.h-letter-title{
+  font-family:'Noto Serif KR',serif;font-weight:500;
+  font-size:clamp(26px,2.8vw,34px);line-height:1.3;letter-spacing:-.005em;margin:0;
+  white-space:pre-line;
+}
+.h-letter-photo{
+  margin:36px 0 36px;
+  width:100%;aspect-ratio:5/2;
+  max-height:52vh;
+  overflow:hidden;background:var(--paper-2);
+  box-shadow:0 1px 0 rgba(0,0,0,.04),0 24px 40px -20px rgba(0,0,0,.30);
+}
+.h-letter-photo img{
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center 62%;
+}
+.h-letter-body{max-width:62ch;margin-left:256px}
+@media (max-width:880px){ .h-letter-body{margin-left:0} }
+.h-letter-body h4{
+  font-family:'Noto Serif KR',serif;font-weight:500;
+  font-size:12px;letter-spacing:.22em;text-transform:none;color:var(--mute);
+  margin:32px 0 12px;
+}
+.h-letter-body h4:first-child{margin-top:0}
+.h-letter-body p{font-size:16px;line-height:1.9;color:#222;margin:0 0 16px}
+.h-letter-body blockquote{
+  border:none;margin:18px 0 0;padding:0;
+  font-family:'Noto Serif KR',serif;font-weight:500;
+  font-size:clamp(20px,2vw,24px);line-height:1.5;color:var(--ink);
+}
+.h-letter-body blockquote p{margin:0;font-size:inherit;line-height:inherit;color:inherit}
+.h-letter-body em{font-style:italic}
+
+/* 본문 안 [대괄호 소제목] 자동 변환을 위한 빈 클래스 (component 에서 적용) */
+
+/* ---------- ABOUT ---------- */
+.about{display:grid;grid-template-columns:1fr 1.1fr;gap:80px;align-items:start}
+@media (max-width:880px){ .about{grid-template-columns:1fr;gap:40px} }
+.about p{font-size:16.5px;line-height:1.85;color:#222;margin:0 0 20px}
+.about p:first-child:first-letter{
+  font-family:'Cormorant Garamond',serif;
+  font-size:64px;line-height:.85;
+  float:left;padding:6px 12px 0 0;font-weight:400;
+}
+.principles{list-style:none;padding:0;margin:0;border-top:1px solid var(--hair)}
+.principles li{
+  display:grid;grid-template-columns:64px 1fr;gap:20px;
+  padding:24px 0;border-bottom:1px solid var(--hair);
+  font-size:14.5px;
+}
+.principles .num{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--mute)}
+.principles b{font-family:'Noto Serif KR',serif;font-weight:500;font-size:17px;display:block;margin-bottom:4px}
+.principles span{color:var(--mute);line-height:1.7}
+
+/* ---------- AUTHORS ---------- */
+.authors{display:grid;grid-template-columns:repeat(2,1fr);gap:32px}
+@media (max-width:640px){ .authors{grid-template-columns:1fr} }
+.author-card{border:1px solid var(--hair);padding:28px;background:rgba(255,255,255,.4)}
+.author-card h4{font-family:'Noto Serif KR',serif;font-weight:500;font-size:20px;margin:0 0 4px}
+.author-card .role{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--mute);margin-bottom:14px}
+.author-card .bio p{margin:0;font-size:14px;color:#333;line-height:1.75}
+.author-card .titles{margin-top:14px;font-size:13px;color:var(--mute)}
+.author-card .titles em{font-style:italic;color:var(--ink)}
+
+/* ---------- FOOTER ---------- */
+footer.foot-wrap{padding:64px 0 48px}
+.foot{display:flex;justify-content:space-between;align-items:flex-start;gap:32px;flex-wrap:wrap}
+.foot .col{font-size:13px;color:var(--mute);line-height:1.85}
+.foot .col b{color:var(--ink);font-family:'Noto Serif KR',serif;font-weight:500;font-size:15px;display:block;margin-bottom:8px}
+.foot .col a:hover{color:var(--ink)}
+.foot-mark{
+  display:block;width:64px;height:64px;
+  margin-bottom:16px;
+  mix-blend-mode:multiply;
+  object-fit:contain;
+}
+.copy{
+  margin-top:48px;padding-top:24px;border-top:1px solid var(--hair);
+  display:flex;justify-content:space-between;font-size:11px;color:var(--mute);letter-spacing:.04em;flex-wrap:wrap;gap:8px;
+}
+
+/* ---------- FICTION (가드너 H의 소설 연재) ---------- */
+.fiction-section{
+  padding:120px 0;
+  background:var(--paper);
+  border-top:1px solid var(--hair);
+  border-bottom:1px solid var(--hair);
+}
+.novel-cover{max-width:780px;margin:0 auto 64px;text-align:center}
+.novel-cover .series{
+  font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--mute);
+  margin-bottom:18px;
+}
+.novel-cover .novel-title{
+  font-family:'Noto Serif KR',serif;font-weight:500;
+  font-size:clamp(40px,5.6vw,64px);line-height:1.1;letter-spacing:-.01em;
+  margin:0 0 14px;
+}
+.novel-cover .novel-byline{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:18px;letter-spacing:.04em;color:var(--mute);margin:0 0 22px;
+}
+.novel-cover .novel-note{
+  font-size:13px;color:#444;line-height:1.8;max-width:520px;margin:0 auto;
+}
+.novel-cover .rule{
+  display:block;width:48px;height:1px;background:var(--ink);margin:34px auto 0;
+}
+.installments{max-width:780px;margin:0 auto;display:flex;flex-direction:column}
+.installment{
+  border-top:1px solid var(--hair);
+  padding:56px 0 64px;
+}
+.installment:first-child{border-top:none;padding-top:0}
+.installment-meta{
+  display:flex;gap:18px;align-items:baseline;flex-wrap:wrap;
+  margin-bottom:24px;
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);
+}
+.installment-meta .no{
+  font-family:'Cormorant Garamond',serif;font-size:32px;letter-spacing:.04em;color:var(--ink);
+  text-transform:none;line-height:1;
+}
+.installment-meta .ep{
+  border:1px solid var(--ink);color:var(--ink);
+  padding:3px 9px;font-size:10.5px;
+}
+.installment-preview, .installment-rest{
+  font-family:'Noto Serif KR',serif;font-weight:400;
+  font-size:17px;line-height:2;color:#1a1a1a;
+}
+.installment-preview p{margin:0 0 18px}
+.installment-preview p:first-child:first-letter{
+  font-family:'Cormorant Garamond',serif;
+  font-size:62px;line-height:.85;
+  float:left;padding:6px 12px 0 0;font-weight:400;
+}
+details.installment-expand{margin-top:16px}
+details.installment-expand > summary{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:11px 18px;
+  border:1px solid var(--ink);color:var(--ink);background:var(--paper);
+  font-family:'Inter','Noto Sans KR',sans-serif;
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  cursor:pointer;list-style:none;
+  transition:background .25s,color .25s;
+}
+details.installment-expand > summary::-webkit-details-marker{display:none}
+details.installment-expand > summary::after{content:'▼';font-size:9px;transition:transform .35s ease}
+details.installment-expand[open] > summary::after{transform:rotate(180deg)}
+details.installment-expand > summary:hover{background:var(--ink);color:var(--paper)}
+details.installment-expand > summary .lbl-close{display:none}
+details.installment-expand[open] > summary .lbl-open{display:none}
+details.installment-expand[open] > summary .lbl-close{display:inline}
+.installment-rest{margin-top:36px}
+.installment-rest p{margin:0 0 18px}
+.installment-rest em{font-style:italic}
+/* 파트 구분점: 본문 ### N 이 h3 로 들어옵니다 → 큰 세리프 디바이더 */
+.installment-rest h3{
+  font-family:'Cormorant Garamond',serif;font-weight:400;
+  font-size:44px;color:var(--ink);text-align:center;
+  margin:56px 0 28px;line-height:1;letter-spacing:.04em;
+}
+.installment-rest h3::before, .installment-rest h3::after{
+  content:'';display:inline-block;vertical-align:middle;
+  width:40px;height:1px;background:var(--ink);opacity:.4;
+  margin:0 18px;
+}
+/* 봉투 안 한 문장 — > blockquote 로 가운데 강조 */
+.installment-rest blockquote{
+  border:none;margin:36px 0;padding:0;
+  text-align:center;
+  font-family:'Noto Serif KR',serif;font-weight:500;
+  font-size:20px;letter-spacing:.01em;color:var(--ink);
+}
+.installment-rest blockquote p{margin:0}
+.installment-end{
+  text-align:center;
+  margin-top:48px;
+  font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--mute);
+}
+.installment-end .rule{
+  display:block;width:32px;height:1px;background:var(--mute);margin:0 auto 12px;
+}
+
+/* ---------- BGM TOGGLE ---------- */
+.bgm{position:fixed;right:24px;bottom:24px;z-index:60}
+.bgm-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  height:38px;padding:0 16px;
+  border:1px solid var(--ink);background:var(--paper);color:var(--ink);
+  font-family:'Inter','Noto Sans KR',sans-serif;
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  cursor:pointer;
+  transition:background .25s,color .25s,opacity .25s;
+  box-shadow:0 6px 18px -10px rgba(0,0,0,.2);
+}
+.bgm-btn:hover{background:var(--ink);color:var(--paper)}
+.bgm-icon{font-size:14px;line-height:1}
+.bgm-btn[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.bgm-btn[aria-pressed="true"] .bgm-icon{animation:bgm-pulse 2.4s ease-in-out infinite}
+@keyframes bgm-pulse{0%,100%{opacity:.55}50%{opacity:1}}
+@media (max-width:640px){
+  .bgm{right:16px;bottom:16px}
+  .bgm-btn{height:34px;padding:0 12px;font-size:10.5px;gap:8px}
+}
+
+/* fade-in on scroll */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}

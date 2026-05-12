@@ -1,0 +1,59 @@
+---
+import { getCollection, render } from 'astro:content';
+
+const letters = (await getCollection('letters'))
+  .sort((a, b) => b.data.no - a.data.no);
+
+// 각 편지의 본문을 미리 렌더링
+const rendered = await Promise.all(
+  letters.map(async (letter) => {
+    const { Content } = await render(letter);
+    return { letter, Content };
+  })
+);
+
+function fmtDate(d: Date) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  const dayKor = ['일','월','화','수','목','금','토'][d.getDay()] + '요일';
+  return { ym: `${y}. ${m}. ${day}`, day: dayKor };
+}
+---
+<section class="sec" id="gardener">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="sec-title">가드너 H의 편지</h2>
+      <div class="sec-kicker">Letters from Gardener H · 비정기 연재</div>
+    </div>
+
+    <div class="h-letters">
+      {rendered.map(({ letter, Content }) => {
+        const f = fmtDate(letter.data.date);
+        const no = String(letter.data.no).padStart(3, '0');
+        return (
+          <article class="h-letter reveal">
+            <div class="h-letter-head">
+              <div class="h-letter-aside">
+                <span class="no">No. {no}</span>
+                <span class="date">{f.ym}<br/>{f.day}</span>
+                <span class="signoff">— {letter.data.signoff}</span>
+              </div>
+              <h3 class="h-letter-title">{letter.data.title}</h3>
+            </div>
+
+            {letter.data.photo && (
+              <figure class="h-letter-photo">
+                <img src={letter.data.photo} alt={letter.data.photoAlt ?? ''}/>
+              </figure>
+            )}
+
+            <div class="h-letter-body">
+              <Content />
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</section>

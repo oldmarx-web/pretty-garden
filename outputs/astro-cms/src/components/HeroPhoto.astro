@@ -1,0 +1,23 @@
+---
+import { getEntry } from 'astro:content';
+const heroSettings = await getEntry('settings', 'hero');
+const { heroPhoto, heroPhotoAlt, heroPhotoCaption, heroPhotoDate } = heroSettings?.data ?? {
+  heroPhoto: '/hero.jpg',
+  heroPhotoAlt: '작은정원 — 히어로 사진',
+  heroPhotoCaption: '',
+  heroPhotoDate: '',
+};
+---
+<section class="hero-photo-section">
+  <div class="wrap">
+    <figure class="hero-photo">
+      <img src={heroPhoto} alt={heroPhotoAlt} loading="eager" decoding="async"/>
+    </figure>
+    {(heroPhotoCaption || heroPhotoDate) && (
+      <figcaption class="photo-caption">
+        <span><em>{heroPhotoCaption.split('.')[0]}.</em> &nbsp; {heroPhotoCaption.split('.').slice(1).join('.').trim()}</span>
+        <span>{heroPhotoDate}</span>
+      </figcaption>
+    )}
+  </div>
+</section>
