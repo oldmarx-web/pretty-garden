@@ -416,6 +416,41 @@ details.installment-expand[open] > summary .lbl-close{display:inline}
   display:block;width:32px;height:1px;background:var(--mute);margin:0 auto 12px;
 }
 
+/* 회차 펼치기/접기 (지난 회차는 제목만 표시) */
+.installment-shell{display:block}
+.installment-shell > summary{
+  list-style:none;cursor:pointer;outline:none;
+}
+.installment-shell > summary::-webkit-details-marker{display:none}
+.installment-shell > summary::marker{content:""}
+.installment-shell > summary:focus-visible{outline:1px dashed var(--mute);outline-offset:6px}
+
+/* 접힌 상태(지난 회차): meta 여백 축소, 부가 정보 숨김 */
+.installment.is-archived{padding:28px 0}
+.installment-shell:not([open]) .installment-meta{margin-bottom:0}
+.installment.is-archived .installment-shell:not([open]) .installment-date,
+.installment.is-archived .installment-shell:not([open]) .installment-parts{display:none}
+
+/* 토글 표식(+ / −) — meta 줄 오른쪽 끝 */
+.installment-toggle{
+  display:inline-block;width:14px;height:14px;
+  position:relative;margin-left:auto;
+  opacity:.45;transition:opacity .2s ease;
+  align-self:center;
+}
+.installment-toggle::before,
+.installment-toggle::after{
+  content:"";position:absolute;left:50%;top:50%;background:var(--ink);
+}
+.installment-toggle::before{width:14px;height:1px;transform:translate(-50%,-50%)}
+.installment-toggle::after{width:1px;height:14px;transform:translate(-50%,-50%);transition:transform .2s ease}
+.installment-shell[open] .installment-toggle::after{transform:translate(-50%,-50%) scaleY(0)}
+.installment-shell > summary:hover .installment-toggle{opacity:.85}
+
+/* 최신회는 토글 표식 숨김(항상 펼침) */
+.installment.is-latest .installment-toggle{display:none}
+.installment.is-latest .installment-shell > summary{cursor:default}
+
 /* ---------- BGM TOGGLE ---------- */
 .bgm{position:fixed;right:24px;bottom:24px;z-index:60}
 .bgm-btn{
