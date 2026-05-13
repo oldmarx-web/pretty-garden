@@ -33,31 +33,37 @@ function fmtDate(d: Date) {
     </div>
 
     <div class="installments">
-      {rendered.map(({ item, Content, previewHtml }) => {
+      {rendered.map(({ item, Content, previewHtml }, index) => {
         const no = String(item.data.no).padStart(2, '0');
+        const isLatest = index === 0;
         return (
-          <article class="installment reveal">
-            <div class="installment-meta">
-              <span class="no">No. {no}</span>
-              <span class="ep">{item.data.episode}</span>
-              <span>{fmtDate(item.data.date)}</span>
-              <span>{item.data.parts}</span>
-            </div>
-
-            <div class="installment-preview" set:html={previewHtml}></div>
-
-            <details class="installment-expand">
-              <summary>
-                <span class="lbl-open">이어 읽기 — {item.data.episode}</span>
-                <span class="lbl-close">접기</span>
-              </summary>
-              <div class="installment-rest">
-                <Content />
-                <div class="installment-end">
-                  <span class="rule"></span>
-                  {item.data.episode} 끝 · To be continued
+          <article class={`installment reveal ${isLatest ? 'is-latest' : 'is-archived'}`}>
+            <details class="installment-shell" open={isLatest}>
+              <summary class="installment-summary">
+                <div class="installment-meta">
+                  <span class="no">No. {no}</span>
+                  <span class="ep">{item.data.episode}</span>
+                  <span class="installment-date">{fmtDate(item.data.date)}</span>
+                  <span class="installment-parts">{item.data.parts}</span>
+                  <span class="installment-toggle" aria-hidden="true"></span>
                 </div>
-              </div>
+              </summary>
+
+              <div class="installment-preview" set:html={previewHtml}></div>
+
+              <details class="installment-expand">
+                <summary>
+                  <span class="lbl-open">이어 읽기 — {item.data.episode}</span>
+                  <span class="lbl-close">접기</span>
+                </summary>
+                <div class="installment-rest">
+                  <Content />
+                  <div class="installment-end">
+                    <span class="rule"></span>
+                    {item.data.episode} 끝 · To be continued
+                  </div>
+                </div>
+              </details>
             </details>
           </article>
         );
