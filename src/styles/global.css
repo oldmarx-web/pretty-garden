@@ -224,6 +224,46 @@ img{display:block;max-width:100%;height:auto}
 .h-letter-body blockquote p{margin:0;font-size:inherit;line-height:inherit;color:inherit}
 .h-letter-body em{font-style:italic}
 
+/* 편지 펼치기/접기 (지난 편지는 제목만 표시) */
+.h-letter-details{display:block}
+.h-letter-details > summary{
+  list-style:none;
+  cursor:pointer;
+  outline:none;
+}
+.h-letter-details > summary::-webkit-details-marker{display:none}
+.h-letter-details > summary::marker{content:""}
+.h-letter-details > summary:focus-visible{outline:1px dashed var(--mute);outline-offset:6px}
+
+/* 접힌 상태: signoff 숨김, 여백 축소 */
+.h-letter-details:not([open]) .h-letter-head{margin-bottom:0}
+.h-letter-details:not([open]) .h-letter-aside .signoff{display:none}
+.h-letter.is-archived{padding:28px 0}
+
+/* 토글 인디케이터(+ / −) — 제목 옆에 작게 */
+.h-letter-toggle{
+  display:inline-block;
+  width:14px;height:14px;
+  margin-left:14px;
+  vertical-align:middle;
+  position:relative;
+  opacity:.45;
+  transition:opacity .2s ease;
+}
+.h-letter-toggle::before,
+.h-letter-toggle::after{
+  content:"";position:absolute;left:50%;top:50%;
+  background:var(--ink);
+}
+.h-letter-toggle::before{width:14px;height:1px;transform:translate(-50%,-50%)}
+.h-letter-toggle::after{width:1px;height:14px;transform:translate(-50%,-50%);transition:transform .2s ease}
+.h-letter-details[open] .h-letter-toggle::after{transform:translate(-50%,-50%) scaleY(0)}
+.h-letter-details > summary:hover .h-letter-toggle{opacity:.85}
+
+/* 최신 편지는 토글 표식 숨김 (항상 펼쳐져 있음) */
+.h-letter.is-latest .h-letter-toggle{display:none}
+.h-letter.is-latest .h-letter-details > summary{cursor:default}
+
 /* 본문 안 [대괄호 소제목] 자동 변환을 위한 빈 클래스 (component 에서 적용) */
 
 /* ---------- ABOUT ---------- */
