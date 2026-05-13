@@ -28,29 +28,35 @@ function fmtDate(d: Date) {
     </div>
 
     <div class="h-letters">
-      {rendered.map(({ letter, Content }) => {
+      {rendered.map(({ letter, Content }, index) => {
         const f = fmtDate(letter.data.date);
         const no = String(letter.data.no).padStart(3, '0');
+        const isLatest = index === 0;
         return (
-          <article class="h-letter reveal">
-            <div class="h-letter-head">
-              <div class="h-letter-aside">
-                <span class="no">No. {no}</span>
-                <span class="date">{f.ym}<br/>{f.day}</span>
-                <span class="signoff">— {letter.data.signoff}</span>
+          <article class={`h-letter reveal ${isLatest ? 'is-latest' : 'is-archived'}`}>
+            <details class="h-letter-details" open={isLatest}>
+              <summary class="h-letter-head">
+                <div class="h-letter-aside">
+                  <span class="no">No. {no}</span>
+                  <span class="date">{f.ym}<br/>{f.day}</span>
+                  <span class="signoff">— {letter.data.signoff}</span>
+                </div>
+                <h3 class="h-letter-title">
+                  {letter.data.title}
+                  <span class="h-letter-toggle" aria-hidden="true"></span>
+                </h3>
+              </summary>
+
+              {letter.data.photo && (
+                <figure class="h-letter-photo">
+                  <img src={letter.data.photo} alt={letter.data.photoAlt ?? ''}/>
+                </figure>
+              )}
+
+              <div class="h-letter-body">
+                <Content />
               </div>
-              <h3 class="h-letter-title">{letter.data.title}</h3>
-            </div>
-
-            {letter.data.photo && (
-              <figure class="h-letter-photo">
-                <img src={letter.data.photo} alt={letter.data.photoAlt ?? ''}/>
-              </figure>
-            )}
-
-            <div class="h-letter-body">
-              <Content />
-            </div>
+            </details>
           </article>
         );
       })}
